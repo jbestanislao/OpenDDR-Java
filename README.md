@@ -1,10 +1,13 @@
 OpenDDR-Java
 ==============
-Dear OpenDDR user, 
 
-In the follow the description of directory tree:
-* lib: contains necessary libraries to run OpenDDR-Simple-API;
-* src: contains java source code and the oddr.properties file. Please configure the oddr.properties file with the right path of the resources.
+Prerequisites:
+DDR-Simple-API is not yet in maven central, so we need to publish it locally.
+First we need to download the jar from here http://www.w3.org/TR/2008/WD-DDR-Simple-API-20080404/
+and run the command below.
+<pre><code>
+mvn install:install-file -DgroupId=org.w3c.ddr.simple -DartifactId=DDR-Simple-API -Dversion=20080404 -Dpackaging=jar -Dfile=DDR-Simple-API.jar -DgeneratePom=true -DcreateChecksum=true
+</code></pre>
 
 
 A basic explanation of the properties in oddr.properties:
