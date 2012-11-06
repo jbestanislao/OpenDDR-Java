@@ -1,0 +1,12 @@
+.metadata/
+build/
+target/
+bin/
+.idea/
+
+.DS_Store
+._.DS_Store
+nb-configuration.xml
+*.iml
+
+
