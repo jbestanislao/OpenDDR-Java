@@ -23,9 +23,11 @@ package org.openddr.simpleapi.oddr.builder.os;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import org.openddr.simpleapi.oddr.builder.Builder;
 import org.openddr.simpleapi.oddr.builder.device.WinPhoneDeviceBuilder;
 import org.openddr.simpleapi.oddr.builder.os.mozilla.AndroidMozillaSubBuilder;
+import org.openddr.simpleapi.oddr.builder.os.mozilla.MacOSXMozillaSubBuilder;
 import org.openddr.simpleapi.oddr.builder.os.mozilla.SymbianMozillaSubBuilder;
 import org.openddr.simpleapi.oddr.builder.os.mozilla.WinCEMozillaSubBuilder;
 import org.openddr.simpleapi.oddr.model.BuiltObject;
@@ -38,26 +40,24 @@ public class OperaOSModelBuilder implements Builder {
         new AndroidMozillaSubBuilder(),
         new SymbianMozillaSubBuilder(),
         new WinCEMozillaSubBuilder(),
-        new WinPhoneDeviceBuilder()
+        new WinPhoneDeviceBuilder(),
+        new MacOSXMozillaSubBuilder()
     };
 
     public boolean canBuild(UserAgent userAgent) {
-        if (userAgent.hasOperaPattern()) {
-            return true;
-        }
-        return false;
+        return userAgent.hasOperaPattern();
     }
 
-    public BuiltObject build(UserAgent userAgent, int confidenceTreshold) {
+    public BuiltObject build(UserAgent userAgent, int confidenceThreshold) {
         List<OperatingSystem> founds = new ArrayList<OperatingSystem>();
         OperatingSystem found = null;
         for (Builder builder : builders) {
             if (builder.canBuild(userAgent)) {
-                OperatingSystem builded = (OperatingSystem) builder.build(userAgent, confidenceTreshold);
-                if (builded != null) {
-                    founds.add(builded);
-                    if (builded.getConfidence() >= confidenceTreshold) {
-                        found = builded;
+                OperatingSystem built = (OperatingSystem) builder.build(userAgent, confidenceThreshold);
+                if (built != null) {
+                    founds.add(built);
+                    if (built.getConfidence() >= confidenceThreshold) {
+                        found = built;
                         break;
                     }
                 }
